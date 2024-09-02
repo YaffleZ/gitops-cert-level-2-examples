@@ -15,3 +15,16 @@ spec:
                 - path: application-sets/example-apps/*
           # cluster generator, 'child' #2
           - clusters: {}
+  template:
+    metadata:
+      name: '{{path.basename}}-{{name}}'
+    spec:
+      project: '{{metadata.labels.environment}}'
+      source:
+        repoURL: https://github.com/argoproj/argo-cd.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: '{{server}}'
+        namespace: '{{path.basename}}'
+
